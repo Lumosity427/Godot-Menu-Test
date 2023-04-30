@@ -1,0 +1,38 @@
+menu :
+
+
+extends Spatial
+
+
+func _on_NewGame_pressed():
+	#in a normal game you would reset progress but this is just the menu so yeah
+	get_tree().change_scene("res://scenes/night.tscn")
+
+
+func _on_Continue_pressed():
+	get_tree().change_scene("res://scenes/night.tscn")
+
+
+func _on_Exit_pressed():
+	get_tree().quit()
+
+
+
+
+extends Spatial
+
+onready var anim = $AnimationPlayer
+
+func _ready():
+	randomize()
+	
+	while true:
+		#wait for 1-4 seconds
+		yield(get_tree().create_timer(rand_range(0.2, 4)), "timeout")
+		#twitch
+		twitch()
+
+func twitch():
+	#randomly decide what twitch animation should play
+	var twitch_id = randi() % 4 + 1
+	anim.play("twitching_" + str(twitch_id))
